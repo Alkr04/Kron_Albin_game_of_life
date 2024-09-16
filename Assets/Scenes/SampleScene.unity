@@ -248,8 +248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   window: {x: 20, y: 12, z: 0}
   cell: {fileID: 4297357427744229787, guid: feecc03a4a553804daf297f9220cc552, type: 3}
-  cellm: 20000
-  frames: 1
+  cellm: 100000
+  frames: 10
 --- !u!135 &784447820
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -354,11 +354,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8490062209492151774, guid: feecc03a4a553804daf297f9220cc552, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.37
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8490062209492151774, guid: feecc03a4a553804daf297f9220cc552, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8490062209492151774, guid: feecc03a4a553804daf297f9220cc552, type: 3}
       propertyPath: m_LocalPosition.z
