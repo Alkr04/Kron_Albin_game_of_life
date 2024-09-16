@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class life : MonoBehaviour
 {
     public Vector3Int window = new Vector3Int(20, 12);
-    GameObject[,] grid = new GameObject[200, 200];
+    GameObject[,] grid = new GameObject[500, 500];
     //public GameObject[] test = new GameObject[2];
     //public GameObject t;
     public GameObject cell;
