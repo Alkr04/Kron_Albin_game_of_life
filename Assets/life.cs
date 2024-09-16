@@ -119,7 +119,7 @@ public class life : MonoBehaviour
             if (check(i, j) < 3 || check(i,j) > 4)
             {
                 grid[i, j].tag = "Dead";
-                Debug.Log(i + " " + j);
+                //Debug.Log(i + " " + j);
             }
         }
     }
