@@ -34,7 +34,7 @@ public class life : MonoBehaviour
             }
             else
             {
-                Debug.Log(grid[x,y]);
+                //Debug.Log(grid[x,y]);
                 i -= 1;
             }
         }
@@ -115,7 +115,7 @@ public class life : MonoBehaviour
         }
         else if (grid[i,j].tag == "live" || grid[i,j].tag == "Dead")
         {
-            Debug.Log(grid[i,j].tag);
+            //Debug.Log(grid[i,j].tag);
             if (check(i, j) < 3 || check(i,j) > 4)
             {
                 grid[i, j].tag = "Dead";
