@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class life : MonoBehaviour
 {
     public Vector3Int window = new Vector3Int(20, 12);
-    SpriteRenderer[,] grid = new SpriteRenderer[500, 500];
+    SpriteRenderer[,] grid = new SpriteRenderer[1000, 1000];
     //public GameObject[] test = new GameObject[2];
     //public GameObject t;
     public GameObject cell;
@@ -90,6 +90,7 @@ public class life : MonoBehaviour
                 }
             }
         }
+        Debug.Log(Time.deltaTime);
     }
 
     
@@ -156,13 +157,11 @@ public class life : MonoBehaviour
                 {
 
                 }
-                else
+                else if (grid[x, y].tag == "live" || grid[x, y].tag == "Dead")
                 {
                     //Debug.Log(grid[x,y] + " " + x + " " + y);
-                    if (grid[x,y].tag == "live" || grid[x,y].tag == "Dead")
-                    {
-                        live++;
-                    }
+                    live++;
+                    
                 }
             }
         }

@@ -249,7 +249,7 @@ MonoBehaviour:
   window: {x: 20, y: 12, z: 0}
   cell: {fileID: 4297357427744229787, guid: feecc03a4a553804daf297f9220cc552, type: 3}
   cellm: 100000
-  frames: 10
+  frames: 1
 --- !u!135 &784447820
 SphereCollider:
   m_ObjectHideFlags: 0
