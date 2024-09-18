@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class life : MonoBehaviour
 {
     public Vector3Int window = new Vector3Int(20, 12);
-    SpriteRenderer[,] grid = new SpriteRenderer[500, 500];
-    SpriteRenderer[,] sgrid = new SpriteRenderer[500, 500];
+    GameObject[,] grid = new GameObject[500, 500];
+    bool[,] sgrid = new bool[500, 500];
     //public GameObject[] test = new GameObject[2];
     //public GameObject t;
     public GameObject cell;
@@ -19,28 +19,28 @@ public class life : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        window = new Vector3Int(grid.GetLength(0), grid.GetLength(1));
+        window = new Vector3Int(grid.GetLength(0)-3, grid.GetLength(1)-3);
         Application.targetFrameRate = frames;
         //test[0] = t;
         //grid[1, 1] = 69;
         //grid[1, 0] = 96;
         //grid[cordinat.x,cordinat.y] = Instantiate(cell, cordinat, transform.rotation);
         //cellm = Random.Range(600,700);
-        for (int i = 1; i < window.x - 3; i++)
+        for (int i = 1; i < window.x; i++)
         {
-            for (int j = 1; j < window.y - 3; j++)
+            for (int j = 1; j < window.y; j++)
             {
-                grid[i, j] = Instantiate(cell, new Vector3Int(i, j), transform.rotation, gameObject.transform).GetComponent<SpriteRenderer>();
+                grid[i, j] = Instantiate(cell, new Vector3Int(i, j), transform.rotation, gameObject.transform);
             }
         }
 
         for (int i = 0; cellm >= i; i++)
         {
-            int x = Random.Range(3,window.x -3);
-            int y = Random.Range(3,window.y -3);
-            if(grid[x,y].enabled == false)
+            int x = Random.Range(3,window.x);
+            int y = Random.Range(3,window.y);
+            if (!grid[x,y].activeSelf)
             {
-                grid[x, y].enabled = true;
+                grid[x, y].SetActive (true);
             }
             else
             {
@@ -48,10 +48,10 @@ public class life : MonoBehaviour
                 //i -= 1;
             }
         }
-        /*grid[3, 3].GetComponent<SpriteRenderer>().enabled = true;
-        grid[3, 4].GetComponent<SpriteRenderer>().enabled = true;
-        grid[3, 5].GetComponent<SpriteRenderer>().enabled = true;*/
-        //grid[4, 4].GetComponent<SpriteRenderer>().enabled = true;
+        //grid[3, 3].GetComponent<SpriteRenderer>().enabled = true;
+        /*grid[2, 4].SetActive(true);
+        grid[4, 2].SetActive(true);
+        grid[3, 3].SetActive(true);*/
     }
 
     // Update is called once per frame
@@ -70,9 +70,9 @@ public class life : MonoBehaviour
 
         for (int b = 0; b < 4; b++)
         {
-            for (int i = 1; i < window.x - 3; i++)
+            for (int i = 1; i < window.x; i++)
             {
-                for (int j = 1; j < window.y - 3; j++)
+                for (int j = 1; j < window.y; j++)
                 {
                     switch (b)
                     {
@@ -98,13 +98,13 @@ public class life : MonoBehaviour
 
     private void stable()
     {
-        if (count % 16 == 0)
+        if (count % 8 == 0)
         {
             Debug.Log(count);
             int cchildren = 0;
-            foreach (SpriteRenderer child in transform.GetComponentsInChildren<SpriteRenderer>())
+            foreach (Transform child in transform)
             {
-                if (child.enabled == true)
+                if (child == true)
                 {
                     cchildren++;
                 }
@@ -113,40 +113,55 @@ public class life : MonoBehaviour
             {
                 if (inspecter(grid, sgrid))
                 {
-                    Debug.Log(grid);
+                    //Debug.Log(grid);
                     SceneManager.LoadScene(0);
                 }
                 else
                 {
-                    sgrid = grid;
+                    for (int i = 1; i < window.x; i++)
+                    {
+                        for (int j = 1; j < window.y; j++)
+                        {
+                            sgrid[i, j] = grid[i, j].activeSelf;
+                        }
+                    }
                 }
             }
             else
             {
                 children = 0;
-                foreach (SpriteRenderer e in transform.GetComponentsInChildren<SpriteRenderer>())
+                foreach (Transform e in transform)
                 {
-                    if (e.enabled == true)
+                    if (e == true)
                     {
                         children++;
                     }
                 }
+                //Debug.Log(sgrid[3,3].activeSelf + " " + grid[3,3].activeSelf);
                 //children = transform.childCount;
-                sgrid = grid;
+                for (int i = 1; i < window.x; i++)
+                {
+                    for (int j = 1; j < window.y; j++)
+                    {
+                        sgrid[i, j] = grid[i, j].activeSelf;
+                    }
+                }
             }
 
-            Debug.Log(cchildren);
+            //Debug.Log(cchildren);
         }
         count++;
     }
 
-    bool inspecter(SpriteRenderer[,] x, SpriteRenderer[,] y)
+    bool inspecter(GameObject[,] x, bool[,] y)
     {
-        for (int i = 1; i < window.x - 3; i++)
+        for (int i = 1; i < window.x; i++)
         {
-            for (int j = 1; j < window.y - 3; j++)
+            for (int j = 1; j < window.y; j++)
             {
-                if (x[i,j].enabled != x[i,j].enabled)
+
+                //Debug.Log(x[i,j].activeSelf + " " + y[i,j].activeSelf);
+                if (x[i,j].activeSelf != y[i,j])
                 {
                     return (false);
                 }
@@ -158,18 +173,18 @@ public class life : MonoBehaviour
 
     void growth(int i, int j)
     {
-        if (grid[i, j].enabled == false)
+        if (!grid[i, j].activeSelf)
         {
             if (check(i, j) == 3)
             {
-                grid[i, j].enabled = true;
+                grid[i, j].SetActive(true);
                 grid[i, j].tag = "growing";
             }
         }  
     }
     void growing(int i, int j)
     {
-        if (grid[i, j].enabled == false)
+        if (!grid[i, j].activeSelf)
         {
 
         }
@@ -181,7 +196,7 @@ public class life : MonoBehaviour
 
     void death(int i, int j)
     {
-        if (grid[i, j].enabled == false)
+        if (!grid[i, j].activeSelf)
         {
 
         }
@@ -197,13 +212,13 @@ public class life : MonoBehaviour
     }
     void decai(int i, int j)
     {
-        if(grid[i, j].enabled == false)
+        if(!grid[i, j].activeSelf)
         {
 
         }
         else if (grid[i,j].tag == "Dead")
         {
-            grid[i, j].enabled = false;
+            grid[i, j].SetActive(false);
         }
     }
     int check(int i, int j)
@@ -214,7 +229,7 @@ public class life : MonoBehaviour
             for (int x = i-1; x < i + 2; x++)
             {
                 //Debug.Log(x + " " + y);
-                if (grid[x, y] == null || grid[x, y].enabled == false)
+                if (grid[x, y] == null || !grid[x, y].activeSelf)
                 {
 
                 }
