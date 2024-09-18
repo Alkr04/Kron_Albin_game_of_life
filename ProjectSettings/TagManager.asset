@@ -7,6 +7,7 @@ TagManager:
   - live
   - Dead
   - growing
+  - Dying
   layers:
   - Default
   - TransparentFX
