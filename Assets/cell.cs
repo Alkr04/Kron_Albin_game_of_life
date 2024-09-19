@@ -13,6 +13,7 @@ public class cell : MonoBehaviour
     }
     void OnEnable()
     {
+        age = 0;
         sprite = GetComponent<SpriteRenderer>();
         sprite.color = Color.green;
     }
@@ -28,7 +29,7 @@ public class cell : MonoBehaviour
                 case (10):
                     sprite.color = Color.red;
                     break;
-                case (15):
+                case (>=15):
                     sprite.color = Color.black;
                     break;
             }

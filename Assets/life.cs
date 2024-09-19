@@ -11,7 +11,7 @@ public class life : MonoBehaviour
     //public GameObject[] test = new GameObject[2];
     //public GameObject t;
     public GameObject cell;
-    public int cellm;
+    public float fillpursent;
     public int frames = 1;
     int children;
     int count = 0;
@@ -34,7 +34,7 @@ public class life : MonoBehaviour
             }
         }
 
-        for (int i = 0; cellm >= i; i++)
+        for (int i = 0; grid.Length * (fillpursent * 0.01) >= i; i++)
         {
             int x = Random.Range(3,window.x);
             int y = Random.Range(3,window.y);
@@ -45,7 +45,7 @@ public class life : MonoBehaviour
             else
             {
                 //Debug.Log(grid[x,y]);
-                //i -= 1;
+                i -= 1;
             }
         }
         //grid[3, 3].GetComponent<SpriteRenderer>().enabled = true;
@@ -98,11 +98,12 @@ public class life : MonoBehaviour
 
     private void stable()
     {
-        if (count % 8 == 0)
+        if (count % 16 == 0)
         {
            if (inspecter(grid, sgrid))
            {
-            SceneManager.LoadScene(0);
+                Debug.Log("stable");
+                SceneManager.LoadScene(0);
            }
            else
            {
