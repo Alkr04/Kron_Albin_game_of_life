@@ -102,7 +102,7 @@ public class life : MonoBehaviour
         {
            if (inspecter(grid, sgrid))
            {
-                Debug.Log("stable");
+                //Debug.Log("stable");
                 SceneManager.LoadScene(0);
            }
            else
