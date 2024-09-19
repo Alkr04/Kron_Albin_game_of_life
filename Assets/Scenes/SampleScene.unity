@@ -248,8 +248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   window: {x: 20, y: 12, z: 0}
   cell: {fileID: 4297357427744229787, guid: feecc03a4a553804daf297f9220cc552, type: 3}
-  cellm: 500
-  frames: 1
+  fillpursent: 0.75
+  frames: 10
 --- !u!135 &784447820
 SphereCollider:
   m_ObjectHideFlags: 0

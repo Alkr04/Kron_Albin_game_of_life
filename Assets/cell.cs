@@ -5,18 +5,22 @@ using UnityEngine;
 public class cell : MonoBehaviour
 {
     SpriteRenderer sprite;
-    int age = 0;
+    public int age = 0;
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+    void OnEnable()
+    {
+        age = 0;
         sprite = GetComponent<SpriteRenderer>();
+        sprite.color = Color.green;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (sprite.enabled == true)
-        {
             switch (age)
             {
                 case (5):
@@ -25,17 +29,10 @@ public class cell : MonoBehaviour
                 case (10):
                     sprite.color = Color.red;
                     break;
-                case (15):
+                case (>=15):
                     sprite.color = Color.black;
                     break;
             }
             age++;
-
-        }
-        else
-        {
-            age = 0;
-            sprite.color = Color.green;
-        }
     }
 }
