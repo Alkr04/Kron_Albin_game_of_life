@@ -100,45 +100,12 @@ public class life : MonoBehaviour
     {
         if (count % 8 == 0)
         {
-            Debug.Log(count);
-            int cchildren = 0;
-            foreach (Transform child in transform)
-            {
-                if (child == true)
-                {
-                    cchildren++;
-                }
-            }
-            if (children == cchildren)
-            {
-                if (inspecter(grid, sgrid))
-                {
-                    //Debug.Log(grid);
-                    SceneManager.LoadScene(0);
-                }
-                else
-                {
-                    for (int i = 1; i < window.x; i++)
-                    {
-                        for (int j = 1; j < window.y; j++)
-                        {
-                            sgrid[i, j] = grid[i, j].activeSelf;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                children = 0;
-                foreach (Transform e in transform)
-                {
-                    if (e == true)
-                    {
-                        children++;
-                    }
-                }
-                //Debug.Log(sgrid[3,3].activeSelf + " " + grid[3,3].activeSelf);
-                //children = transform.childCount;
+           if (inspecter(grid, sgrid))
+           {
+            SceneManager.LoadScene(0);
+           }
+           else
+           {
                 for (int i = 1; i < window.x; i++)
                 {
                     for (int j = 1; j < window.y; j++)
@@ -146,9 +113,7 @@ public class life : MonoBehaviour
                         sgrid[i, j] = grid[i, j].activeSelf;
                     }
                 }
-            }
-
-            //Debug.Log(cchildren);
+           }
         }
         count++;
     }
@@ -177,6 +142,7 @@ public class life : MonoBehaviour
         {
             if (check(i, j) == 3)
             {
+                //Debug.Log(i + " " + j);
                 grid[i, j].SetActive(true);
                 grid[i, j].tag = "growing";
             }
