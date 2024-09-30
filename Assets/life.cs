@@ -19,15 +19,15 @@ public class life : MonoBehaviour
     {
         window = new Vector3Int(grid.GetLength(0)-3, grid.GetLength(1)-3);
         Application.targetFrameRate = frames;
-        for (int i = 1; i < window.x; i++)
+        for (int x = 1; x < window.x; x++)
         {
-            for (int j = 1; j < window.y; j++)
+            for (int y = 1; y < window.y; y++)
             {
-                grid[i, j] = Instantiate(cell, new Vector3Int(i, j), transform.rotation, gameObject.transform);
+                grid[x, y] = Instantiate(cell, new Vector3Int(x, y), transform.rotation, gameObject.transform);
             }
         }
 
-        for (int i = 0; grid.Length * (fillpursent * 0.01) >= i; i++)
+        for (int maxCells = 0; grid.Length * (fillpursent * 0.01) >= maxCells; maxCells++)
         {
             int x = Random.Range(3,window.x);
             int y = Random.Range(3,window.y);
@@ -37,7 +37,7 @@ public class life : MonoBehaviour
             }
             else
             {
-                i -= 1;
+                maxCells -= 1;
             }
         }
     }
@@ -87,11 +87,11 @@ public class life : MonoBehaviour
            }
            else
            {
-                for (int i = 1; i < window.x; i++)
+                for (int x = 1; x < window.x; x++)
                 {
-                    for (int j = 1; j < window.y; j++)
+                    for (int y = 1; y < window.y; y++)
                     {
-                        sgrid[i, j] = grid[i, j].activeSelf;
+                        sgrid[x, y] = grid[x, y].activeSelf;
                     }
                 }
            }
@@ -99,13 +99,13 @@ public class life : MonoBehaviour
         count++;
     }
 
-    bool inspecter(GameObject[,] x, bool[,] y)
+    bool inspecter(GameObject[,] gameObjectGrid, bool[,] activeObjectGrid)
     {
-        for (int i = 1; i < window.x; i++)
+        for (int x = 1; x < window.x; x++)
         {
-            for (int j = 1; j < window.y; j++)
+            for (int y = 1; y < window.y; y++)
             {
-                if (x[i,j].activeSelf != y[i,j])
+                if (gameObjectGrid[x,y].activeSelf != activeObjectGrid[x,y])
                 {
                     return (false);
                 }
@@ -115,60 +115,60 @@ public class life : MonoBehaviour
     }
 
 
-    void growth(int i, int j)
+    void growth(int x, int y)
     {
-        if (!grid[i, j].activeSelf)
+        if (!grid[x, y].activeSelf)
         {
-            if (check(i, j) == 3)
+            if (check(x, y) == 3)
             {
-                grid[i, j].SetActive(true);
-                grid[i, j].tag = "growing";
+                grid[x, y].SetActive(true);
+                grid[x, y].tag = "growing";
             }
         }  
     }
-    void growing(int i, int j)
+    void growing(int x, int y)
     {
-        if (!grid[i, j].activeSelf)
+        if (!grid[x, y].activeSelf)
         {
 
         }
-        else if (grid[i, j].tag == "growing")
+        else if (grid[x, y].tag == "growing")
         {
-            grid[i, j].tag = "live";
+            grid[x, y].tag = "live";
         }
     }
 
-    void death(int i, int j)
+    void death(int x, int y)
     {
-        if (!grid[i, j].activeSelf)
+        if (!grid[x, y].activeSelf)
         {
 
         }
-        else if (grid[i,j].tag == "live")
+        else if (grid[x,y].tag == "live")
         {
-            if (check(i, j)-1 < 2 || check(i,j)-1 > 3)
+            if (check(x, y)-1 < 2 || check(x,y)-1 > 3)
             {
-                grid[i, j].tag = "Dead";
+                grid[x, y].tag = "Dead";
             }
         }
     }
-    void decai(int i, int j)
+    void decai(int x, int y)
     {
-        if(!grid[i, j].activeSelf)
+        if(!grid[x, y].activeSelf)
         {
 
         }
-        else if (grid[i,j].tag == "Dead")
+        else if (grid[x,y].tag == "Dead")
         {
-            grid[i, j].SetActive(false);
+            grid[x, y].SetActive(false);
         }
     }
-    int check(int i, int j)
+    int check(int locationX, int locationy)
     {
-        int live = 0;
-        for (int y = j-1; y < j + 2; y++)
+        int living = 0;
+        for (int y = locationy-1; y < locationy + 2; y++)
         {
-            for (int x = i-1; x < i + 2; x++)
+            for (int x = locationX-1; x < locationX + 2; x++)
             {
                 if (grid[x, y] == null || !grid[x, y].activeSelf)
                 {
@@ -176,10 +176,10 @@ public class life : MonoBehaviour
                 }
                 else if (grid[x, y].tag == "live" || grid[x, y].tag == "Dead")
                 {
-                    live++;
+                    living++;
                 }
             }
         }
-        return (live);
+        return (living);
     }
 }
