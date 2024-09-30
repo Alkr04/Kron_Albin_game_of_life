@@ -7,11 +7,10 @@ public class life : MonoBehaviour
 {
     public Vector3Int window = new Vector3Int(20, 12);
     GameObject[,] grid = new GameObject[500, 500];
-    bool[,] sgrid = new bool[500, 500];
+    bool[,] savedGrid = new bool[500, 500];
     public GameObject cell;
     public float fillpursent;
     public int frames = 1;
-    int children;
     int count = 0;
 
     // Start is called before the first frame update
@@ -81,7 +80,7 @@ public class life : MonoBehaviour
     {
         if (count % 16 == 0)
         {
-           if (inspecter(grid, sgrid))
+           if (inspecter(grid, savedGrid))
            {
                 SceneManager.LoadScene(0);
            }
@@ -91,7 +90,7 @@ public class life : MonoBehaviour
                 {
                     for (int y = 1; y < window.y; y++)
                     {
-                        sgrid[x, y] = grid[x, y].activeSelf;
+                        savedGrid[x, y] = grid[x, y].activeSelf;
                     }
                 }
            }
@@ -163,10 +162,10 @@ public class life : MonoBehaviour
             grid[x, y].SetActive(false);
         }
     }
-    int check(int locationX, int locationy)
+    int check(int locationX, int Y)
     {
         int living = 0;
-        for (int y = locationy-1; y < locationy + 2; y++)
+        for (int y = Y-1; y < Y + 2; y++)
         {
             for (int x = locationX-1; x < locationX + 2; x++)
             {
