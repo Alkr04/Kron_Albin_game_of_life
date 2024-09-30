@@ -8,8 +8,6 @@ public class life : MonoBehaviour
     public Vector3Int window = new Vector3Int(20, 12);
     GameObject[,] grid = new GameObject[500, 500];
     bool[,] sgrid = new bool[500, 500];
-    //public GameObject[] test = new GameObject[2];
-    //public GameObject t;
     public GameObject cell;
     public float fillpursent;
     public int frames = 1;
@@ -21,11 +19,6 @@ public class life : MonoBehaviour
     {
         window = new Vector3Int(grid.GetLength(0)-3, grid.GetLength(1)-3);
         Application.targetFrameRate = frames;
-        //test[0] = t;
-        //grid[1, 1] = 69;
-        //grid[1, 0] = 96;
-        //grid[cordinat.x,cordinat.y] = Instantiate(cell, cordinat, transform.rotation);
-        //cellm = Random.Range(600,700);
         for (int i = 1; i < window.x; i++)
         {
             for (int j = 1; j < window.y; j++)
@@ -44,55 +37,43 @@ public class life : MonoBehaviour
             }
             else
             {
-                //Debug.Log(grid[x,y]);
                 i -= 1;
             }
         }
-        //grid[3, 3].GetComponent<SpriteRenderer>().enabled = true;
-        /*grid[2, 4].SetActive(true);
-        grid[4, 2].SetActive(true);
-        grid[3, 3].SetActive(true);*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        //print(grid.GetLength(0));
-        //print(test[1]);
-
-
-
-
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(0);
         }
 
-        for (int b = 0; b < 4; b++)
+        for (int stage = 0; stage < 4; stage++)
         {
-            for (int i = 1; i < window.x; i++)
+            for (int x = 1; x < window.x; x++)
             {
-                for (int j = 1; j < window.y; j++)
+                for (int y = 1; y < window.y; y++)
                 {
-                    switch (b)
+                    switch (stage)
                     {
                         case (0):
-                            growth(i, j);
+                            growth(x, y);
                             break;
                         case (1):
-                            death(i, j);
+                            death(x, y);
                             break;
                         case (2):
-                            decai(i, j);
+                            decai(x, y);
                             break;
                         case (3):
-                            growing(i, j);
+                            growing(x, y);
                             break;
                     }
                 }
             }
         }
-        //Debug.Log(Time.deltaTime);
         stable();
     }
 
@@ -102,7 +83,6 @@ public class life : MonoBehaviour
         {
            if (inspecter(grid, sgrid))
            {
-                //Debug.Log("stable");
                 SceneManager.LoadScene(0);
            }
            else
@@ -125,8 +105,6 @@ public class life : MonoBehaviour
         {
             for (int j = 1; j < window.y; j++)
             {
-
-                //Debug.Log(x[i,j].activeSelf + " " + y[i,j].activeSelf);
                 if (x[i,j].activeSelf != y[i,j])
                 {
                     return (false);
@@ -143,7 +121,6 @@ public class life : MonoBehaviour
         {
             if (check(i, j) == 3)
             {
-                //Debug.Log(i + " " + j);
                 grid[i, j].SetActive(true);
                 grid[i, j].tag = "growing";
             }
@@ -169,11 +146,9 @@ public class life : MonoBehaviour
         }
         else if (grid[i,j].tag == "live")
         {
-            //Debug.Log(grid[i,j].tag);
             if (check(i, j)-1 < 2 || check(i,j)-1 > 3)
             {
                 grid[i, j].tag = "Dead";
-                //Debug.Log(i + " " + j);
             }
         }
     }
@@ -195,20 +170,16 @@ public class life : MonoBehaviour
         {
             for (int x = i-1; x < i + 2; x++)
             {
-                //Debug.Log(x + " " + y);
                 if (grid[x, y] == null || !grid[x, y].activeSelf)
                 {
 
                 }
                 else if (grid[x, y].tag == "live" || grid[x, y].tag == "Dead")
                 {
-                    //Debug.Log(grid[x,y] + " " + x + " " + y);
                     live++;
-                    
                 }
             }
         }
-        //Debug.Log(live);
         return (live);
     }
 }
